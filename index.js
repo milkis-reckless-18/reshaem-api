@@ -9,10 +9,15 @@ app.use(cors({ origin: '*' }))
 app.options('*', cors())
 app.use(express.json({ limit: '10mb' }))
 
-// Load system prompt from same directory as this file
-const promptMd = fs.readFileSync(path.join(__dirname, 'claude_system_prompt.md'), 'utf8')
-const promptMatch = promptMd.match(/```\n([\s\S]+?)\n```/)
-const SYSTEM_PROMPT = promptMatch ? promptMatch[1] : ''
+let SYSTEM_PROMPT = ''
+try {
+  const promptMd = fs.readFileSync(path.join(__dirname, 'claude_system_prompt.md'), 'utf8')
+  const promptMatch = promptMd.match(/```\n([\s\S]+?)\n```/)
+  SYSTEM_PROMPT = promptMatch ? promptMatch[1] : ''
+  console.log('System prompt loaded, length:', SYSTEM_PROMPT.length)
+} catch (e) {
+  console.error('Could not load system prompt:', e.message)
+}
 
 function preprocessForTTS(text) {
   const ordinals = { '2': 'второй', '3': 'третьей', '4': 'четвёртой' }
