@@ -153,7 +153,7 @@ app.post('/explain', async (req, res) => {
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-6',
-        max_tokens: 1024,
+        max_tokens: 2048,
         system: systemPrompt,
         messages: [
           { role: 'user', content: `LaTeX распознанного решения:\n\n${latex}` },
