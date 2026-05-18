@@ -220,4 +220,4 @@ app.get('/health', (req, res) => res.json({ status: 'ok' }))
 // ─────────────────────────────────────────────────────────────────────────────
 
 const PORT = process.env.PORT || 3001
-app.listen(PORT, () => console.log(`Reshaem server running on port ${PORT}`))
+app.listen(PORT, '0.0.0.0', () => console.log(`Reshaem server running on 0.0.0.0:${PORT}`))
